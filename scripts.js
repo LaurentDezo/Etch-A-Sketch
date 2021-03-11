@@ -1,25 +1,43 @@
+// Variable Declarations
 const container = document.getElementById('container');
-const divArray = ['']
 const button = document.getElementById('resetButton');
-let rowNumber = 0;
+const style = window.getComputedStyle(document.body);
+blockColor = style.getPropertyValue("--block-color");
+let divArray = ['']
+let rowNumber = 100;
+let rowNumberPercent = 100 / rowNumber;
+let rowNumberSquared = rowNumber ** 2;
 
-
-for (i = 0; i < (10000); i++) {
-    divArray[i] = document.createElement('div');
-    divArray[i].classList.add('responsiveSquare');
-    container.appendChild(divArray[i]);
-}
-
-divArray.forEach(div => div.addEventListener('mouseover', colorDiv));
+// Main Program
+createGridSquares();
 
 button.addEventListener('click', reset);
+
+// Function Declarations
+function createGridSquares() {
+    for (i = 0; i < (rowNumberSquared); i++) {
+        divArray[i] = document.createElement('div');
+        divArray[i].classList.add('responsiveSquare');
+        divArray[i].addEventListener('mouseover', colorDiv);
+        divArray[i].style.cssText = `flex-basis:${rowNumberPercent}%;`;
+        container.appendChild(divArray[i]);
+}}
 
 function colorDiv(e) {
     e.target.classList.add('colored');
 }
 
 function reset() {
-    divArray.forEach(div => div.classList.remove('colored'));
-    rowNumber = prompt('How many rows and columns should the sketchpad have?', '10 to 100 is acceptable.');
-    console.log(rowNumber);
+    divArray = [''];
+    while (container.firstChild) {
+        container.removeChild(container.firstChild);
+    }
+    rowNumber = prompt('How many rows and columns should the sketchpad have?', 'Enter a number from 10 to 100');
+    rowNumberPercent = 100 / rowNumber;
+    rowNumberSquared = rowNumber ** 2;
+    createGridSquares();
+}
+
+function randomColorNumber() {
+   return Math.floor(Math.random()*257); 
 }
