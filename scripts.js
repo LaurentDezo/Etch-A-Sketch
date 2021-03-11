@@ -1,8 +1,6 @@
 // Variable Declarations
 const container = document.getElementById('container');
 const button = document.getElementById('resetButton');
-const style = window.getComputedStyle(document.body);
-blockColor = style.getPropertyValue("--block-color");
 let divArray = ['']
 let rowNumber = 100;
 let rowNumberPercent = 100 / rowNumber;
@@ -25,6 +23,8 @@ function createGridSquares() {
 
 function colorDiv(e) {
     e.target.classList.add('colored');
+
+    e.target.style.setProperty('background-color', `rgb(${randomColorNumber()}, ${randomColorNumber()}, ${randomColorNumber()})`);
 }
 
 function reset() {
